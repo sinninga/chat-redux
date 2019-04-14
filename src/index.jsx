@@ -17,7 +17,10 @@ const initialState = {
 }
 
 const reducers = combineReducers({
-  changeMe: (state = null, action) => state
+  messages: messagesReducer,
+  selectedMessage: selectedMessageReducer,
+  channels: channelsReducer,
+  currentUser: currentUserReducer
 });
 
 // render an instance of the component in the DOM
