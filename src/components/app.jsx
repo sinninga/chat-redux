@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
+import MessageList from '../containers/message_list';
 
-const App = () => {
-  return (
-    <div className="app">
-      <p>React + Redux starter</p>
-    </div>
-  );
-};
+class App extends Component {
+  render() {
+    return (
+      <div className="app">
+        <MessageList />
+      </div>
+    );
+  };
+}
 
 export default App;

@@ -19,6 +19,12 @@ const initialState = {
   currentUser: prompt("What is your username?") || `anonymous${Math.floor(10 + (Math.random() * 90))}`
 }
 
+import messagesReducer from './reducers/messages_reducer';
+import selectedMessageReducer from './reducers/selected_message_reducer';
+import channelsReducer from './reducers/channels_reducer';
+import currentUserReducer from './reducers/current_user_reducer';
+
+
 const reducers = combineReducers({
   messages: messagesReducer,
   selectedMessage: selectedMessageReducer,
