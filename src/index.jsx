@@ -10,13 +10,14 @@ import reduxPromise from 'redux-promise';
 // internal modules
 import App from './components/app';
 import '../assets/stylesheets/application.scss';
+import messages from '../src/messages'
 
 // State and reducers
 const initialState = {
   messages: [],
   channels: ["family", "friends", "work"],
   selectedChannel: "family",
-  currentUser: prompt("What is your username?") || `anonymous${Math.floor(10 + (Math.random() * 90))}`
+  // currentUser: prompt("What is your username?") || `anonymous${Math.floor(10 + (Math.random() * 90))}`
 }
 
 import messagesReducer from './reducers/messages_reducer';
