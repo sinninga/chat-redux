@@ -1,13 +1,35 @@
 // TODO: add and export your own actions
 export const FETCH_MESSAGES = 'FETCH-MESSAGES';
+export const MESSAGE_POSTED = 'MESSAGE_POSTED';
+
+const BASE_URL = 'https://wagon-chat.herokuapp.com';
 
 
 export function fetchMessages(channel) {
-  const promise = fetch('https://wagon-chat.herokuapp.com/general/messages')
-    .then(response => response.json());
-      return {
-        type: FETCH_MESSAGES,
-        payload: promise
-      };
-    }
+  const url = `${BASE_URL}/${channel}/messages`;
+  const promise = fetch(url).then(r => r.json());
+
+  return {
+    type: FETCH_MESSAGES,
+    payload: promise // Will be resolved by redux-promise
+  };
+}
+
+export function createMessage(channel, author, content) {
+  const url = `${BASE_URL}/${channel}/messages`;
+  const body = { author, content }; // ES6 destructuring
+  const promise = fetch(url, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  }).then(r => r.json());
+
+  return {
+    type: MESSAGE_POSTED,
+    payload: promise // Will be resolved by redux-promise
+  };
+}
 
