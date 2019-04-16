@@ -2,43 +2,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import { logger } from 'redux-logger';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
 import reduxPromise from 'redux-promise';
-
 
 // internal modules
 import App from './components/app';
 import '../assets/stylesheets/application.scss';
-import messages from '../src/messages'
 
 // State and reducers
+import messagesReducer from './reducers/messages_reducer';
+import selectedChannelReducer from './reducers/selected_channel_reducer';
+
+const identityReducer = (state = null) => state;
+
 const initialState = {
   messages: [],
-  channels: ["general", "react", "paris"],
-  selectedChannel: "general",
-  currentUser: prompt("What is your username?") || `anonymous${Math.floor(10 + (Math.random() * 90))}`
-}
-
-import messagesReducer from './reducers/messages_reducer';
-import selectedMessageReducer from './reducers/selected_message_reducer';
-import channelsReducer from './reducers/channels_reducer';
-import currentUserReducer from './reducers/current_user_reducer';
-
+  channels: ['general', 'react', 'paris'],
+  currentUser: prompt("What is your username?") || `anonymous${Math.floor(10 + (Math.random() * 90))}`,
+  selectedChannel: 'general'
+};
 
 const reducers = combineReducers({
   messages: messagesReducer,
-  selectedMessage: selectedMessageReducer,
-  channels: channelsReducer,
-  currentUser: currentUserReducer
+  channels: identityReducer,
+  currentUser: identityReducer,
+  selectedChannel: selectedChannelReducer
 });
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const middlewares = composeEnhancers(applyMiddleware(reduxPromise, logger));
+// Middlewares
+const middlewares = applyMiddleware(reduxPromise, logger);
+const store = createStore(reducers, initialState, middlewares);
 
 // render an instance of the component in the DOM
 ReactDOM.render(
-  <Provider store={createStore(reducers, initialState, middlewares)}>
+  <Provider store={store}>
     <App />
   </Provider>,
   document.getElementById('root')
