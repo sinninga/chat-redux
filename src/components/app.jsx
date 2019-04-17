@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ChannelList from '../containers/channel_list';
 import MessageList from '../containers/message_list';
 
 const App = (props) => {
-  render() {
     return (
       <div className="messaging-wrapper">
         <ChannelList channelFromParams={props.match.params.channel} />
@@ -11,6 +10,6 @@ const App = (props) => {
       </div>
     );
   };
-}
+
 
 export default App;
